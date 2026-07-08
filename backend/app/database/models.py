@@ -1,12 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, Time, Text, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-import enum
+from app.core.constants import SentimentEnum
 from .database import Base
-
-class SentimentEnum(str, enum.Enum):
-    POSITIVE = "Positive"
-    NEUTRAL = "Neutral"
-    NEGATIVE = "Negative"
 
 class HCP(Base):
     __tablename__ = "hcps"
