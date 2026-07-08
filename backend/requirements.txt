@@ -1,0 +1,10 @@
+fastapi[standard]
+sqlalchemy
+pymysql
+pydantic
+pydantic-settings
+langgraph
+langchain
+groq
+langchain-groq
+python-dotenv
