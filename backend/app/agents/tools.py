@@ -6,22 +6,22 @@ from app.database import crud
 from app.services import parser, summarizer
 
 class LogInteractionInput(BaseModel):
-    hcp_id: int = Field(description="ID of the Healthcare Professional")
-    interaction_type: str = Field(description="Type of interaction (e.g., Meeting, Email, Call)")
+    hcp_id: Optional[int] = Field(None, description="ID of the Healthcare Professional")
+    interaction_type: Optional[str] = Field("Meeting", description="Type of interaction (e.g., Meeting, Email, Call)")
     date: Optional[str] = Field(None, description="Date of interaction in YYYY-MM-DD format")
     time: Optional[str] = Field(None, description="Time of interaction in HH:MM format")
-    topics_discussed: str = Field(description="Key topics discussed")
-    sentiment: str = Field(description="Observed sentiment: Positive, Neutral, or Negative")
+    topics_discussed: Optional[str] = Field("General Catchup", description="Key topics discussed")
+    sentiment: Optional[str] = Field("Neutral", description="Observed sentiment: Positive, Neutral, or Negative")
     materials_shared: Optional[str] = Field(None, description="Materials or brochures shared")
     outcomes: Optional[str] = Field(None, description="Key outcomes or agreements")
     follow_up_actions: Optional[str] = Field(None, description="Follow-up actions")
 
 @tool("log_interaction", args_schema=LogInteractionInput)
 def log_interaction_tool(
-    hcp_id: int, 
-    interaction_type: str, 
-    topics_discussed: str, 
-    sentiment: str, 
+    hcp_id: Optional[int] = None, 
+    interaction_type: Optional[str] = "Meeting", 
+    topics_discussed: Optional[str] = "General Catchup", 
+    sentiment: Optional[str] = "Neutral", 
     date: Optional[str] = None, 
     time: Optional[str] = None,
     materials_shared: Optional[str] = None,
@@ -29,6 +29,9 @@ def log_interaction_tool(
     follow_up_actions: Optional[str] = None
 ):
     """Logs a new interaction with a Healthcare Professional in the database."""
+    if not hcp_id:
+        return "Error: You must provide a valid hcp_id. Please use the search_hcp tool first to find their ID."
+        
     db = SessionLocal()
     try:
         interaction_data = {
