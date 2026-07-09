@@ -15,7 +15,11 @@ def chat_with_agent(request: ChatRequest):
         initial_state = {"messages": [HumanMessage(content=full_message)]}
         final_state = app_graph.invoke(initial_state)
         
-        ai_message = final_state["messages"][-1].content
+        ai_message_content = final_state["messages"][-1].content
+        if isinstance(ai_message_content, list):
+            ai_message = "".join([block.get("text", "") for block in ai_message_content if isinstance(block, dict) and block.get("type") == "text"])
+        else:
+            ai_message = str(ai_message_content)
         
         # Extract tool arguments to auto-fill the UI
         form_data = {}
