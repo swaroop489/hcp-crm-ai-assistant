@@ -31,14 +31,6 @@ const FollowupSection = () => {
           placeholder="Enter next steps or tasks..."
           className="h-20"
         />
-        {followUpActions && (
-          <div className="mt-2">
-            <p className="text-xs font-semibold text-blue-700">AI Suggested Follow-ups:</p>
-            <ul className="text-xs text-blue-600 list-disc ml-4 mt-1">
-              <li>Schedule follow-up meeting in 2 weeks</li>
-            </ul>
-          </div>
-        )}
       </div>
     </>
   );

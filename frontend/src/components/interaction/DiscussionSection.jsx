@@ -26,9 +26,6 @@ const DiscussionSection = () => {
         />
         <Mic className="absolute bottom-3 right-3 text-gray-400 w-4 h-4 cursor-pointer hover:text-blue-500" />
       </div>
-      <Button variant="secondary" className="mt-2 text-xs py-1.5 px-3">
-        <span className="mr-2 text-lg">✨</span> Summarize from Voice Note (Requires Consent)
-      </Button>
     </div>
   );
 };
