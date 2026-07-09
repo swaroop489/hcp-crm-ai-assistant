@@ -47,6 +47,20 @@ const ChatPanel = () => {
         if (formData.outcomes) mappedData.outcomes = formData.outcomes;
         if (formData.follow_up_actions) mappedData.followUpActions = formData.follow_up_actions;
         
+        // Handle edit_interaction tool arguments specifically
+        if (formData.field_to_update && formData.new_value) {
+            const field = formData.field_to_update;
+            const val = formData.new_value;
+            if (field === 'interaction_type') mappedData.interactionType = val;
+            else if (field === 'date') mappedData.date = val;
+            else if (field === 'time') mappedData.time = val;
+            else if (field === 'topics_discussed') mappedData.topicsDiscussed = val;
+            else if (field === 'sentiment') mappedData.sentiment = val.charAt(0).toUpperCase() + val.slice(1);
+            else if (field === 'materials_shared') mappedData.materialsShared = val;
+            else if (field === 'outcomes') mappedData.outcomes = val;
+            else if (field === 'follow_up_actions') mappedData.followUpActions = val;
+        }
+        
         if (Object.keys(mappedData).length > 0) {
            dispatch(setFormData(mappedData));
         }

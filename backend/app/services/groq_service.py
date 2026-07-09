@@ -9,7 +9,7 @@ def get_llm():
     if settings.GROQ_API_KEY and settings.GROQ_API_KEY.strip():
         return ChatGroq(
             api_key=settings.GROQ_API_KEY,
-            model_name="llama-3.1-8b-instant",
+            model_name=settings.GROQ_MODEL_NAME,
             temperature=0.0,
             max_retries=0,
             timeout=15
